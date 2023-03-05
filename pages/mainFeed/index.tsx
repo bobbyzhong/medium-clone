@@ -42,7 +42,7 @@ const MainFeed: NextPage = () => {
             </Text>
             {/* Article Card */}
             {articles.map((article: any) => (
-                <ArticleCard article={article} />
+                <ArticleCard article={article} key={article.id} />
             ))}
         </>
     );
