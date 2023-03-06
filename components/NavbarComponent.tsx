@@ -28,7 +28,7 @@ const NavbarComponent = () => {
                     <>
                         <Navbar.Link href="/login">
                             <Button auto flat>
-                                Login
+                                Login t{" "}
                             </Button>
                         </Navbar.Link>
                     </>
