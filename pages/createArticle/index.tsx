@@ -37,10 +37,15 @@ const CreateArticle: NextPage = () => {
                     .select("*")
                     .eq("email", email)
                     .single();
+
             if (error) {
-                console.log(error);
+                router.push("/onboard");
+                console.log(`Error has occured: ${error}`);
             } else {
                 setUserData(data);
+                if (userData.username == "") {
+                    router.push("/onboard");
+                }
             }
         }
         if (typeof email != "undefined") {
