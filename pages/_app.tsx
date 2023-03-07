@@ -5,7 +5,7 @@ import { useState } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import { Box } from "../components/Box";
 import NavbarComponent from "@/components/NavbarComponent";
-
+import "../styles/globals.css";
 // Providers (providing supabase, next ui)
 
 export default function App({ Component, pageProps }: AppProps) {

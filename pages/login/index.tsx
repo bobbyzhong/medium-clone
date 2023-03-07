@@ -10,12 +10,23 @@ const Login: NextPage = () => {
     const router = useRouter();
 
     if (user) {
-        router.push("/mainFeed");
+        router.push("/profile?userid=" + user?.id);
     }
     return (
         <Auth
-            appearance={{ theme: ThemeSupa }}
+            appearance={{
+                theme: ThemeSupa,
+                style: {
+                    button: {
+                        background: "#22BF90",
+                        color: "white",
+                        fontFamily: "Outfit",
+                    },
+                    //..
+                },
+            }}
             supabaseClient={supabaseClient}
+            providers={[]}
         />
     );
 };

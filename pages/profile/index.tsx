@@ -11,112 +11,105 @@ import {
 import { GetServerSidePropsContext } from "next";
 import { useState, useEffect } from "react";
 
-//  localhost:3000/createArticle
+//  localhost:3000/profile?username=[username]
 
-const CreateArticle: NextPage = () => {
+const Profile: NextPage = () => {
     const supabaseClient = useSupabaseClient();
     const user = useUser();
     const router = useRouter();
+    const { userid } = router.query;
 
-    const email = user?.email;
-
-    function signOutUser() {
-        supabaseClient.auth.signOut();
-        router.push("/");
-    }
-
-    const [userData, setUserData] = useState({
+    const initialState = {
         username: "",
-    });
+        team: "",
+    };
+    const [userData, setUserData] = useState(initialState);
+
+    const handleChange = (e: any) => {
+        setUserData({ ...userData, [e.target.name]: e.target.value });
+    };
 
     useEffect(() => {
-        async function getUsername() {
+        async function getUser() {
             const { data, error }: { data: any; error: any } =
                 await supabaseClient
                     .from("users")
                     .select("*")
-                    .eq("email", email)
+                    .eq("user_id", userid)
                     .single();
             if (error) {
                 console.log(error);
             } else {
                 setUserData(data);
             }
+            if (data == null) {
+                router.push("/onboard");
+            }
         }
-        if (typeof email != "undefined") {
-            getUsername();
+        if (typeof userid != "undefined") {
+            getUser();
         }
-    }, [email]);
+    }, [userid]);
 
-    const initialState = {
-        title: "",
-        content: "",
-    };
-
-    const [articleData, setArticleData] = useState(initialState);
-
-    const handleChange = (e: any) => {
-        setArticleData({ ...articleData, [e.target.name]: e.target.value });
-    };
-
-    const createArticle = async () => {
+    const editUser = async () => {
         try {
             const { data, error } = await supabaseClient
-                .from("articles")
-                .insert([
+                .from("users")
+                .update([
                     {
-                        title: articleData.title,
-                        content: articleData.content,
-                        user_email: user?.email?.toLowerCase(),
-                        user_id: user?.id,
-                        username: userData?.username,
+                        username: userData.username,
+                        team: userData.team,
                     },
                 ])
-                .single();
-            if (error) throw error;
-            setArticleData(initialState);
-            router.push("/mainFeed");
+                .eq("user_id", userid);
+            if (error) {
+                throw error;
+            } else {
+                alert("Successfully Updated!");
+            }
+            router.push("/profile?userid=" + user?.id);
         } catch (error: any) {
             alert(error.message);
         }
     };
 
-    console.log(articleData);
     return (
         <Grid.Container gap={1}>
-            <Text h3>Title</Text>
+            <Text h3>Username</Text>
             <Grid xs={12}>
                 <Textarea
-                    name="title"
-                    aria-label="title"
-                    placeholder="Article Title"
+                    name="username"
+                    aria-label="username"
+                    placeholder="Username"
                     fullWidth={true}
                     rows={1}
                     size="xl"
                     onChange={handleChange}
+                    initialValue={userData.username}
                 ></Textarea>
             </Grid>
-            <Text h3>Article Text</Text>
+            <Text h3>Your Team</Text>
             <Grid xs={12}>
                 <Textarea
-                    name="content"
-                    aria-label="content"
-                    placeholder="Article Text"
+                    name="team"
+                    aria-label="username"
+                    placeholder="Team"
                     fullWidth={true}
-                    rows={6}
+                    rows={1}
                     size="xl"
                     onChange={handleChange}
+                    initialValue={userData.team}
                 ></Textarea>
             </Grid>
             <Grid xs={12}>
-                <Text>Posting as {userData?.username}</Text>
+                <Text>Editing as {user?.email}</Text>
             </Grid>
-            <Button onPress={createArticle}>Create Article</Button>
+            <button onClick={editUser}>Save</button>
         </Grid.Container>
     );
 };
 
-export default CreateArticle;
+export default Profile;
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     // Create authenticated Supabase Client

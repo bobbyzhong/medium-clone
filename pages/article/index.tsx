@@ -55,23 +55,14 @@ const Article: NextPage = () => {
             <Spacer y={1} />
             <Text size="$lg">{article.content}</Text>
             {user && article.user_id === user.id ? (
-                <>
-                    <Spacer y={0.5} />
-                    <Button
-                        size="sm"
-                        onPress={() => router.push("/editArticle?id=" + id)}
+                <div className="flex gap-5">
+                    <button
+                        onClick={() => router.push("/editArticle?id=" + id)}
                     >
                         Edit
-                    </Button>
-                    <Spacer y={0.5} />
-                    <Button
-                        size="sm"
-                        color="error"
-                        onPress={() => deleteArticle()}
-                    >
-                        Delete
-                    </Button>
-                </>
+                    </button>
+                    <button onClick={() => deleteArticle()}>Delete</button>
+                </div>
             ) : null}
         </>
     );

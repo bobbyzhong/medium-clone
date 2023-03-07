@@ -15,9 +15,10 @@ const ArticleCard: NextPage<Props> = (props) => {
         //dd--mm--yyy
         let time = Date.parse(article.inserted_at);
         let date = new Date(time);
+        let day = date.getDay();
 
         return (
-            date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
+            date.getMonth() + "-" + date.getDate() + "-" + date.getFullYear()
         );
     }
 
@@ -28,9 +29,11 @@ const ArticleCard: NextPage<Props> = (props) => {
             onPress={() => router.push("/article?id=" + article.id)}
         >
             <Card.Body>
-                <Text h3>{article.title}</Text>
-                <Text>posted {getDate()}</Text>
-                <Text>By {article.user_email.toLowerCase()}</Text>
+                <div className="text-xl font-semibold mb-5">
+                    {article.title}
+                </div>
+                <div className="mb-1">Posted {getDate()}</div>
+                <div>by {article.username}</div>
             </Card.Body>
         </Card>
     );
