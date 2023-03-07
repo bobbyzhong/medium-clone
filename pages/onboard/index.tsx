@@ -85,7 +85,7 @@ const Onboard: NextPage = () => {
                     ></Textarea>
                 </Grid>
 
-                <button onClick={createUser}>I'm done</button>
+                <button onClick={createUser}>Done!</button>
             </Grid.Container>
         </div>
     );
