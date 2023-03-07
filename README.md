@@ -1,4 +1,4 @@
-# Article Sharing Site (Medium Clone)
+# Article Sharing Site 
 
 ## Features
 -Login/Sign up page
