@@ -1,7 +1,7 @@
 # Article Sharing Site 
 
 ## Features
-*Login/Sign up page
+* Login/Sign up page
 *Database in Postgres storing user info and articles
 *Automatic redirects to onboard page if the user signs in but has not set up username and other info
 *Only allows owner of article to edit the article
