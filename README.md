@@ -1,13 +1,13 @@
 # Article Sharing Site 
 
 ## Features
--Login/Sign up page
--Database in Postgres storing user info and articles
--Automatic redirects to onboard page if the user signs in but has not set up username and other info
--Only allows owner of article to edit the article
--CRUD operations on article
--Dynamically displays things like username or Sign out option depending on whether user is signed in
--Automatic redirects to login if unauthorized user attempts to go to routes only authorized users have access to
+*Login/Sign up page
+*Database in Postgres storing user info and articles
+*Automatic redirects to onboard page if the user signs in but has not set up username and other info
+*Only allows owner of article to edit the article
+*CRUD operations on article
+*Dynamically displays things like username or Sign out option depending on whether user is signed in
+*Automatic redirects to login if unauthorized user attempts to go to routes only authorized users have access to
 
 # About
 Created article posting site as project for learning how to use Supabase with NextJs
